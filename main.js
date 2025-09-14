@@ -488,7 +488,7 @@ const scheduleData = {
                         period: "2 пара",
                         subject: "Анализ данных и машинное обучение",
                         type: "Практическое занятие",
-                        location: "3 корпус - 221/1, пл. Extremalная",
+                        location: "3 корпус - 221/1, пл. Основная",
                         class: "practice"
                     },
                     {
@@ -685,10 +685,10 @@ const scheduleData = {
         }
     },
     12: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "17.11.2025",
+        endDate: "23.11.2025",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 17.11.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -724,28 +724,45 @@ const scheduleData = {
                     }
                 ]
             },
-            "ВТОРНИК, 04.11.2025": {
+            "ВТОРНИК, 18.11.2025": {
                 lessons: []
             },
-            "СРЕДА, 05.11.2025": {
+            "СРЕДА, 19.11.2025": {
                 lessons: []
             },
-            "ЧЕТВЕРГ, 06.11.2025": {
+            "ЧЕТВЕРГ, 20.11.2025": {
+                lessons: [
+                    {
+                        time: "15:40-17:10",
+                        period: "5 пара",
+                        subject: "Инженерия знаний",
+                        type: "Практическое занятие",
+                        location: "3 корпус - 453, пл. Основная",
+                        class: "practice"
+                    },
+                    {
+                        time: "17:20-18:50",
+                        period: "6 пара",
+                        subject: "Анализ данных и машинное обучение",
+                        type: "Практическое занятие",
+                        location: "3 корпус - 435, пл. Основная",
+                        class: "practice"
+                    }
+                ]
+            },
+            "ПЯТНИЦА, 21.11.2025": {
                 lessons: []
             },
-            "ПЯТНИЦА, 07.11.2025": {
-                lessons: []
-            },
-            "СУББОТА, 08.11.2025": {
+            "СУББОТА, 22.11.2025": {
                 lessons: []
             }
         }
     },
     13: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "24.11.2025",
+        endDate: "30.11.2025",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 24.11.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -773,45 +790,62 @@ const scheduleData = {
                     }
                 ]
             },
-            "ВТОРНИК, 04.11.2025": {
+            "ВТОРНИК, 25.11.2025": {
                 lessons: []
             },
-            "СРЕДА, 05.11.2025": {
+            "СРЕДА, 26.11.2025": {
                 lessons: []
             },
-            "ЧЕТВЕРГ, 06.11.2025": {
-                lessons: []
-            },
-            "ПЯТНИЦА, 07.11.2025": {
+            "ЧЕТВЕРГ, 27.11.2025": {
                 lessons: [
                     {
                         time: "15:40-17:10",
                         period: "5 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        subject: "Анализ данных и машинное обучение",
+                        type: "Практическое занятие",
+                        location: "3 корпус - 453, пл. Основная",
+                        class: "practice"
                     },
                     {
                         time: "17:20-18:50",
                         period: "6 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        subject: "Анализ данных и машинное обучение",
+                        type: "Практическое занятие",
+                        location: "3 корпус - 435, пл. Основная",
+                        class: "practice"
                     }
                 ]
             },
-            "СУББОТА, 08.11.2025": {
+            "ПЯТНИЦА, 28.11.2025": {
+                lessons: [
+                    {
+                        time: "11:50-13:20",
+                        period: "3 пара",
+                        subject: "Технологии разработки веб-приложений на Django",
+                        type: "Практическое занятие",
+                        location: "3 корпус - 221/1, пл. Основная",
+                        class: "practice"
+                    },
+                    {
+                        time: "14:00-15:30",
+                        period: "4 пара",
+                        subject: "Технологии разработки веб-приложений на Django",
+                        type: "Практическое занятие",
+                        location: "3 корпус - 221/1, пл. Основная",
+                        class: "practice"
+                    }
+                ]
+            },
+            "СУББОТА, 29.11.2025": {
                 lessons: []
             }
         }
     },
     14: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "01.12.2025",
+        endDate: "07.12.2025",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 01.12.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -836,48 +870,40 @@ const scheduleData = {
                         type: "Практическое занятие",
                         location: "6 корпус - 458, пл. Основная",
                         class: "practice"
-                    }
-                ]
-            },
-            "ВТОРНИК, 04.11.2025": {
-                lessons: []
-            },
-            "СРЕДА, 05.11.2025": {
-                lessons: []
-            },
-            "ЧЕТВЕРГ, 06.11.2025": {
-                lessons: []
-            },
-            "ПЯТНИЦА, 07.11.2025": {
-                lessons: [
-                    {
-                        time: "15:40-17:10",
-                        period: "5 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
                     },
                     {
-                        time: "17:20-18:50",
-                        period: "6 пара",
+                        time: "14:00-15:30",
+                        period: "4 пара",
                         subject: "Технологии разработки веб-приложений на Django",
                         type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
+                        location: "8 корпус - 501, пл. Основная",
                         class: "lecture"
                     }
                 ]
             },
-            "СУББОТА, 08.11.2025": {
+            "ВТОРНИК, 02.12.2025": {
+                lessons: []
+            },
+            "СРЕДА, 03.12.2025": {
+                lessons: []
+            },
+            "ЧЕТВЕРГ, 04.12.2025": {
+                lessons: []
+            },
+            "ПЯТНИЦА, 05.12.2025": {
+                lessons: []
+            },
+            "СУББОТА, 06.12.2025": {
                 lessons: []
             }
         }
     },
+
     15: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "08.12.2025",
+        endDate: "14.12.2025",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 08.12.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -900,50 +926,51 @@ const scheduleData = {
                         period: "3 пара",
                         subject: "Иностранный язык профессионального общения",
                         type: "Практическое занятие",
-                        location: "6 корпус - 458, пл. Основная",
+                        location: "6 корpус - 458, пл. Основная",
                         class: "practice"
                     }
                 ]
             },
-            "ВТОРНИК, 04.11.2025": {
+            "ВТОРНИК, 09.12.2025": {
                 lessons: []
             },
-            "СРЕДА, 05.11.2025": {
+            "СРЕДА, 10.12.2025": {
                 lessons: []
             },
-            "ЧЕТВЕРГ, 06.11.2025": {
+            "ЧЕТВЕРГ, 11.12.2025": {
                 lessons: []
             },
-            "ПЯТНИЦА, 07.11.2025": {
+            "ПЯТНИЦА, 12.12.2025": {
                 lessons: [
                     {
-                        time: "15:40-17:10",
-                        period: "5 пара",
+                        time: "11:50-13:20",
+                        period: "3 пара",
                         subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
+                        type: "Практическое занятие",
                         location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        class: "practice"
                     },
                     {
-                        time: "17:20-18:50",
-                        period: "6 пара",
+                        time: "14:00-15:30",
+                        period: "4 пара",
                         subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
+                        type: "Практическое занятие",
                         location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        class: "practice"
                     }
                 ]
             },
-            "СУББОТА, 08.11.2025": {
+            "СУББОТА, 13.12.2025": {
                 lessons: []
             }
         }
     },
+
     16: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "15.12.2025",
+        endDate: "21.12.2025",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 15.12.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -971,45 +998,46 @@ const scheduleData = {
                     }
                 ]
             },
-            "ВТОРНИК, 04.11.2025": {
+            "ВТОРНИК, 16.12.2025": {
                 lessons: []
             },
-            "СРЕДА, 05.11.2025": {
+            "СРЕДА, 17.12.2025": {
                 lessons: []
             },
-            "ЧЕТВЕРГ, 06.11.2025": {
+            "ЧЕТВЕРГ, 18.12.2025": {
                 lessons: []
             },
-            "ПЯТНИЦА, 07.11.2025": {
+            "ПЯТНИЦА, 19.12.2025": {
                 lessons: [
                     {
-                        time: "15:40-17:10",
-                        period: "5 пара",
+                        time: "11:50-13:20",
+                        period: "3 пара",
                         subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
+                        type: "Практическое занятие",
                         location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        class: "practice"
                     },
                     {
-                        time: "17:20-18:50",
-                        period: "6 пара",
+                        time: "14:00-15:30",
+                        period: "4 пара",
                         subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
+                        type: "Практическое занятие",
                         location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        class: "practice"
                     }
                 ]
             },
-            "СУББОТА, 08.11.2025": {
+            "СУББОТА, 20.12.2025": {
                 lessons: []
             }
         }
     },
+
     17: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "22.12.2025",
+        endDate: "28.12.2025",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 22.12.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -1037,45 +1065,46 @@ const scheduleData = {
                     }
                 ]
             },
-            "ВТОРНИК, 04.11.2025": {
+            "ВТОРНИК, 23.12.2025": {
                 lessons: []
             },
-            "СРЕДА, 05.11.2025": {
+            "СРЕДА, 24.12.2025": {
                 lessons: []
             },
-            "ЧЕТВЕРГ, 06.11.2025": {
+            "ЧЕТВЕРГ, 25.12.2025": {
                 lessons: []
             },
-            "ПЯТНИЦА, 07.11.2025": {
+            "ПЯТНИЦА, 26.12.2025": {
                 lessons: [
                     {
-                        time: "15:40-17:10",
-                        period: "5 пара",
+                        time: "11:50-13:20",
+                        period: "3 пара",
                         subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
+                        type: "Практическое занятие",
                         location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        class: "practice"
                     },
                     {
-                        time: "17:20-18:50",
-                        period: "6 пара",
+                        time: "14:00-15:30",
+                        period: "4 пара",
                         subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
+                        type: "Диф. зачет",
                         location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
+                        class: "exam"
                     }
                 ]
             },
-            "СУББОТА, 08.11.2025": {
+            "СУББОТА, 27.12.2025": {
                 lessons: []
             }
         }
     },
+
     18: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
+        startDate: "29.12.2025",
+        endDate: "04.01.2026",
         days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
+            "ПОНЕДЕЛЬНИК, 29.12.2025": {
                 lessons: [
                     {
                         time: "08:30-10:00",
@@ -1097,182 +1126,286 @@ const scheduleData = {
                         time: "11:50-13:20",
                         period: "3 пара",
                         subject: "Иностранный язык профессионального общения",
-                        type: "Практическое занятие",
+                        type: "Зачет",
                         location: "6 корпус - 458, пл. Основная",
-                        class: "practice"
+                        class: "exam"
                     }
                 ]
             },
-            "ВТОРНИК, 04.11.2025": {
+            "ВТОРНИК, 30.12.2025": {
                 lessons: []
             },
-            "СРЕДА, 05.11.2025": {
+            "СРЕДА, 31.12.2025": {
                 lessons: []
             },
-            "ЧЕТВЕРГ, 06.11.2025": {
+            "ЧЕТВЕРГ, 01.01.2026": {
                 lessons: []
             },
-            "ПЯТНИЦА, 07.11.2025": {
-                lessons: [
-                    {
-                        time: "15:40-17:10",
-                        period: "5 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
-                    },
-                    {
-                        time: "17:20-18:50",
-                        period: "6 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
-                    }
-                ]
+            "ПЯТНИЦА, 02.01.2026": {
+                lessons: []
             },
-            "СУББОТА, 08.11.2025": {
+            "СУББОТА, 03.01.2026": {
                 lessons: []
             }
         }
-    },
-    19: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
-        days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
-                lessons: [
-                    {
-                        time: "08:30-10:00",
-                        period: "1 пара",
-                        subject: "Инженерия знаний",
-                        type: "Практическое занятие",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "practice"
-                    },
-                    {
-                        time: "10:10-11:40",
-                        period: "2 пара",
-                        subject: "Анализ данных и машинное обучение",
-                        type: "Практическое занятие",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "practice"
-                    },
-                    {
-                        time: "11:50-13:20",
-                        period: "3 пара",
-                        subject: "Иностранный язык профессионального общения",
-                        type: "Практическое занятие",
-                        location: "6 корпус - 458, пл. Основная",
-                        class: "practice"
-                    }
-                ]
-            },
-            "ВТОРНИК, 04.11.2025": {
-                lessons: []
-            },
-            "СРЕДА, 05.11.2025": {
-                lessons: []
-            },
-            "ЧЕТВЕРГ, 06.11.2025": {
-                lessons: []
-            },
-            "ПЯТНИЦА, 07.11.2025": {
-                lessons: [
-                    {
-                        time: "15:40-17:10",
-                        period: "5 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
-                    },
-                    {
-                        time: "17:20-18:50",
-                        period: "6 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
-                    }
-                ]
-            },
-            "СУББОТА, 08.11.2025": {
-                lessons: []
-            }
-        }
-    },
-    20: {
-        startDate: "03.11.2025",
-        endDate: "09.11.2025",
-        days: {
-            "ПОНЕДЕЛЬНИК, 03.11.2025": {
-                lessons: [
-                    {
-                        time: "08:30-10:00",
-                        period: "1 пара",
-                        subject: "Инженерия знаний",
-                        type: "Практическое занятие",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "practice"
-                    },
-                    {
-                        time: "10:10-11:40",
-                        period: "2 пара",
-                        subject: "Анализ данных и машинное обучение",
-                        type: "Практическое занятие",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "practice"
-                    },
-                    {
-                        time: "11:50-13:20",
-                        period: "3 пара",
-                        subject: "Иностранный язык профессионального общения",
-                        type: "Практическое занятие",
-                        location: "6 корпус - 458, пл. Основная",
-                        class: "practice"
-                    }
-                ]
-            },
-            "ВТОРНИК, 04.11.2025": {
-                lessons: []
-            },
-            "СРЕДА, 05.11.2025": {
-                lessons: []
-            },
-            "ЧЕТВЕРГ, 06.11.2025": {
-                lessons: []
-            },
-            "ПЯТНИЦА, 07.11.2025": {
-                lessons: [
-                    {
-                        time: "15:40-17:10",
-                        period: "5 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
-                    },
-                    {
-                        time: "17:20-18:50",
-                        period: "6 пара",
-                        subject: "Технологии разработки веб-приложений на Django",
-                        type: "Лекция",
-                        location: "3 корпус - 221/1, пл. Основная",
-                        class: "lecture"
-                    }
-                ]
-            },
-            "СУББОТА, 08.11.2025": {
-                lessons: []
-            }
-        }
-    },
+    }
 }
 
-let currentWeek = 2;
-const totalWeeks = Object.keys(scheduleData).length;
+// Функция для определения иконки предмета по названию
+function getSubjectIcon(subjectName) {
+    const lowerName = subjectName.toLowerCase();
+    
+    if (lowerName.includes('python') || lowerName.includes('django') || lowerName.includes('программир')) {
+        return { icon: 'fas fa-code', class: 'tech' };
+    }
+    if (lowerName.includes('инженерия') || lowerName.includes('знан')) {
+        return { icon: 'fas fa-brain', class: 'lecture' };
+    }
+    if (lowerName.includes('анализ') || lowerName.includes('машинн') || lowerName.includes('данн')) {
+        return { icon: 'fas fa-chart-line', class: 'seminar' };
+    }
+    if (lowerName.includes('иностран') || lowerName.includes('язык')) {
+        return { icon: 'fas fa-language', class: 'language' };
+    }
+    if (lowerName.includes('физическ') || lowerName.includes('спорт')) {
+        return { icon: 'fas fa-running', class: 'pe' };
+    }
+    if (lowerName.includes('зачет') || lowerName.includes('экзамен')) {
+        return { icon: 'fas fa-graduation-cap', class: 'exam' };
+    }
+    
+    return { icon: 'fas fa-book', class: 'practice' };
+}
+
+// Функция для получения детальной информации о предметах
+function getSubjectDetails() {
+    const subjects = {};
+    
+    for (const weekNum in scheduleData) {
+        const week = scheduleData[weekNum];
+        for (const dayName in week.days) {
+            const day = week.days[dayName];
+            day.lessons.forEach(lesson => {
+                if (!subjects[lesson.subject]) {
+                    subjects[lesson.subject] = {
+                        name: lesson.subject,
+                        weeks: new Set(),
+                        types: {},
+                        classrooms: new Set(),
+                        totalHours: 0,
+                        weekDetails: {}
+                    };
+                }
+                
+                const subject = subjects[lesson.subject];
+                subject.weeks.add(parseInt(weekNum));
+                
+                // Подсчет типов занятий
+                subject.types[lesson.type] = (subject.types[lesson.type] || 0) + 1;
+                
+                // Подсчет аудиторий
+                const classroom = lesson.location.split('-')[1]?.trim() || lesson.location;
+                subject.classrooms.add(classroom);
+                
+                // Подсчет часов (1 пара = 1.5 часа)
+                subject.totalHours += 1.5;
+                
+                // Детали по неделям
+                if (!subject.weekDetails[weekNum]) {
+                    subject.weekDetails[weekNum] = {
+                        types: new Set(),
+                        classrooms: new Set()
+                    };
+                }
+                subject.weekDetails[weekNum].types.add(lesson.class);
+                subject.weekDetails[weekNum].classrooms.add(classroom);
+            });
+        }
+    }
+    
+    // Преобразуем в массив и сортируем
+    return Object.values(subjects).map(subject => ({
+        ...subject,
+        weeks: Array.from(subject.weeks).sort((a, b) => a - b),
+        classrooms: Array.from(subject.classrooms),
+        icon: getSubjectIcon(subject.name)
+    })).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Функция для определения класса недели по типам занятий
+function getWeekClass(types) {
+    const typeSet = new Set(types);
+    
+    if (typeSet.size > 1) return 'week-mixed';
+    if (typeSet.has('lecture')) return 'week-lecture';
+    if (typeSet.has('seminar')) return 'week-seminar';
+    if (typeSet.has('practice')) return 'week-practice';
+    if (typeSet.has('exam')) return 'week-exam';
+    if (typeSet.has('diffcheck')) return 'week-diffcheck';
+    
+    return 'week-practice';
+}
+
+// Функция для определения номера недели на основе текущей даты
+function getCurrentWeekNumber() {
+    const today = new Date();
+    const currentDate = today.toLocaleDateString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }).replace(/\./g, '.'); // Формат DD.MM.YYYY
+
+    // Ищем неделю, в диапазон которой попадает текущая дата
+    for (const weekNum in scheduleData) {
+        const week = scheduleData[weekNum];
+        const startDate = new Date(week.startDate.split('.').reverse().join('-'));
+        const endDate = new Date(week.endDate.split('.').reverse().join('-'));
+        const current = new Date(currentDate.split('.').reverse().join('-'));
+
+        if (current >= startDate && current <= endDate) {
+            return parseInt(weekNum);
+        }
+    }
+
+    // Если не нашли, возвращаем ближайшую неделю или первую
+    return Object.keys(scheduleData)[0] || 1;
+}
+
+// Функция для получения всех предметов с информацией о неделях
+function getAllSubjectsWithWeeks() {
+    const subjects = {};
+    
+    for (const weekNum in scheduleData) {
+        const week = scheduleData[weekNum];
+        for (const dayName in week.days) {
+            const day = week.days[dayName];
+            day.lessons.forEach(lesson => {
+                if (!subjects[lesson.subject]) {
+                    subjects[lesson.subject] = {
+                        name: lesson.subject,
+                        weeks: new Set(),
+                        count: 0
+                    };
+                }
+                subjects[lesson.subject].weeks.add(parseInt(weekNum));
+                subjects[lesson.subject].count++;
+            });
+        }
+    }
+    
+    // Преобразуем Set в массив и сортируем
+    return Object.values(subjects).map(subject => ({
+        ...subject,
+        weeks: Array.from(subject.weeks).sort((a, b) => a - b)
+    })).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Функция для отображения страницы предметов
+function renderSubjectsPage() {
+    const container = document.getElementById('subjectsContainer');
+    const subjects = getSubjectDetails();
+    
+    container.innerHTML = '';
+    
+    if (subjects.length === 0) {
+        container.innerHTML = '<div class="text-center p-4">Предметы не найдены</div>';
+        return;
+    }
+    
+    subjects.forEach(subject => {
+        const subjectCard = document.createElement('div');
+        subjectCard.className = 'subject-card';
+        
+        // Статистика по типам занятий
+        const statsHTML = Object.entries(subject.types).map(([type, count]) => {
+            const typeClass = type.toLowerCase().includes('лекц') ? 'lecture' :
+                            type.toLowerCase().includes('семинар') ? 'seminar' :
+                            type.toLowerCase().includes('практик') ? 'practice' :
+                            type.toLowerCase().includes('зачет') ? 'exam' :
+                            type.toLowerCase().includes('диф') ? 'diffcheck' : 'practice';
+            
+            return `<span class="stat-badge ${typeClass}-stat">${type}: ${count}</span>`;
+        }).join('');
+        
+        // Сетка недель с цветовой индикацией
+        const weeksHTML = subject.weeks.map(week => {
+            const weekClass = getWeekClass(subject.weekDetails[week].types);
+            return `<span class="week-badge ${weekClass}" title="Неделя ${week}">${week}</span>`;
+        }).join('');
+        
+        // Аудитории
+        const classroomsHTML = subject.classrooms.map(classroom => 
+            `<div class="classroom-item">
+                <span class="classroom-icon"><i class="fas fa-map-marker-alt"></i></span>
+                ${classroom}
+            </div>`
+        ).join('');
+        
+        subjectCard.innerHTML = `
+            <div class="subject-header">
+                <div class="subject-icon ${subject.icon.class}">
+                    <i class="${subject.icon.icon}"></i>
+                </div>
+                <div class="subject-name">${subject.name}</div>
+            </div>
+            
+            <div class="subject-stats">
+                ${statsHTML}
+            </div>
+            
+            <div class="subject-hours">
+                <span class="hours-total">Всего часов: ${subject.totalHours} ч.</span>
+            </div>
+            
+            ${classroomsHTML ? `
+            <div class="classroom-info">
+                <strong>Аудитории:</strong>
+                ${classroomsHTML}
+            </div>
+            ` : ''}
+            
+            <div class="weeks-list">
+                <strong>Недели проведения:</strong>
+                <div class="week-grid mt-2">
+                    ${weeksHTML}
+                </div>
+            </div>
+        `;
+        
+        container.appendChild(subjectCard);
+    });
+}
+
+// Функция для отображения страницы настроек
+function renderSettingsPage() {
+    const container = document.getElementById('settingsContainer');
+    
+    container.innerHTML = `
+        <div class="settings-card">
+            <h5 class="mb-3">Информация о клиенте</h5>
+            <div class="info-item">
+                <div class="info-label">Группа</div>
+                <div class="info-value">15.27д-ист02/23б</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Устройство</div>
+                <div class="info-value">${navigator.userAgent.substring(0, 60)}...</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Разрешение экрана</div>
+                <div class="info-value">${window.screen.width} × ${window.screen.height}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Браузер</div>
+                <div class="info-value">${navigator.userAgent.split(') ')[0].split(' (')[1] || 'Неизвестно'}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Версия приложения</div>
+                <div class="info-value">1.0.0</div>
+            </div>
+        </div>
+    `;
+}
 
 // Функция для отображения расписания
 function renderSchedule(week) {
@@ -1330,22 +1463,88 @@ function renderSchedule(week) {
     }
 }
 
+// Функция для переключения страниц
+function switchPage(page) {
+    // Скрываем все контейнеры
+    document.getElementById('scheduleContainer').style.display = 'none';
+    document.getElementById('subjectsContainer').style.display = 'none';
+    document.getElementById('settingsContainer').style.display = 'none';
+    
+    // Показываем/скрываем навигацию по неделям
+    document.getElementById('weekNav').style.display = page === 'schedule' ? 'block' : 'none';
+    
+    // Обновляем заголовок
+    const titles = {
+        'schedule': 'Расписание занятий',
+        'subjects': 'Все предметы',
+        'settings': 'Настройки'
+    };
+    document.getElementById('pageTitle').textContent = titles[page];
+    
+    // Показываем нужный контейнер
+    document.getElementById(`${page}Container`).style.display = 'block';
+    
+    // Обновляем активную кнопку
+    document.querySelectorAll('.footer-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById(`${page}Btn`).classList.add('active');
+    
+    // Сохраняем текущее состояние
+    currentState.page = page;
+    
+    // Если переключились на страницу, которая требует обновления данных
+    if (page === 'subjects') {
+        renderSubjectsPage();
+    } else if (page === 'settings') {
+        renderSettingsPage();
+    }
+}
+
+// Текущее состояние приложения
+let currentState = {
+    page: 'schedule',
+    week: getCurrentWeekNumber()
+};
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', function () {
-    renderSchedule(currentWeek);
-
-    // Обработчики для кнопок навигации
+    // Инициализируем начальное состояние
+    renderSchedule(currentState.week);
+    renderSubjectsPage();
+    renderSettingsPage();
+    
+    // Показываем расписание по умолчанию
+    switchPage('schedule');
+    
+    // Обработчики для кнопок навигации по неделям
     document.getElementById('prevWeek').addEventListener('click', function () {
-        if (currentWeek > 2) {
-            currentWeek--;
-            renderSchedule(currentWeek);
+        if (currentState.week > 2) {
+            currentState.week--;
+            renderSchedule(currentState.week);
         }
     });
 
     document.getElementById('nextWeek').addEventListener('click', function () {
-        if (currentWeek < 12) {
-            currentWeek++;
-            renderSchedule(currentWeek);
+        if (currentState.week < 18) {
+            currentState.week++;
+            renderSchedule(currentState.week);
         }
+    });
+    
+    // Обработчики для кнопок нижней панели
+    document.getElementById('scheduleBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        switchPage('schedule');
+    });
+    
+    document.getElementById('subjectsBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        switchPage('subjects');
+    });
+    
+    document.getElementById('settingsBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        switchPage('settings');
     });
 });
