@@ -1177,61 +1177,6 @@ function getSubjectIcon(subjectName) {
     return { icon: 'fas fa-book', class: 'practice' };
 }
 
-// Функция для получения детальной информации о предметах
-function getSubjectDetails() {
-    const subjects = {};
-    
-    for (const weekNum in scheduleData) {
-        const week = scheduleData[weekNum];
-        for (const dayName in week.days) {
-            const day = week.days[dayName];
-            day.lessons.forEach(lesson => {
-                if (!subjects[lesson.subject]) {
-                    subjects[lesson.subject] = {
-                        name: lesson.subject,
-                        weeks: new Set(),
-                        types: {},
-                        classrooms: new Set(),
-                        totalHours: 0,
-                        weekDetails: {}
-                    };
-                }
-                
-                const subject = subjects[lesson.subject];
-                subject.weeks.add(parseInt(weekNum));
-                
-                // Подсчет типов занятий
-                subject.types[lesson.type] = (subject.types[lesson.type] || 0) + 1;
-                
-                // Подсчет аудиторий
-                const classroom = lesson.location.split('-')[1]?.trim() || lesson.location;
-                subject.classrooms.add(classroom);
-                
-                // Подсчет часов (1 пара = 1.5 часа)
-                subject.totalHours += 1.5;
-                
-                // Детали по неделям
-                if (!subject.weekDetails[weekNum]) {
-                    subject.weekDetails[weekNum] = {
-                        types: new Set(),
-                        classrooms: new Set()
-                    };
-                }
-                subject.weekDetails[weekNum].types.add(lesson.class);
-                subject.weekDetails[weekNum].classrooms.add(classroom);
-            });
-        }
-    }
-    
-    // Преобразуем в массив и сортируем
-    return Object.values(subjects).map(subject => ({
-        ...subject,
-        weeks: Array.from(subject.weeks).sort((a, b) => a - b),
-        classrooms: Array.from(subject.classrooms),
-        icon: getSubjectIcon(subject.name)
-    })).sort((a, b) => a.name.localeCompare(b.name));
-}
-
 // Функция для определения класса недели по типам занятий
 function getWeekClass(types) {
     const typeSet = new Set(types);
@@ -1271,6 +1216,70 @@ function getCurrentWeekNumber() {
     return Object.keys(scheduleData)[0] || 1;
 }
 
+// Функция для получения дней недели предмета
+function getSubjectDays(subjectName) {
+    const daysCount = {};
+    const daysMap = {
+        'ПОНЕДЕЛЬНИК': 'Пн',
+        'ВТОРНИК': 'Вт',
+        'СРЕДА': 'Ср',
+        'ЧЕТВЕРГ': 'Чт',
+        'ПЯТНИЦА': 'Пт',
+        'СУББОТА': 'Сб'
+    };
+    
+    for (const weekNum in scheduleData) {
+        const week = scheduleData[weekNum];
+        for (const dayName in week.days) {
+            const day = week.days[dayName];
+            const hasSubject = day.lessons.some(lesson => lesson.subject === subjectName);
+            
+            if (hasSubject) {
+                const dayKey = dayName.split(',')[0].toUpperCase();
+                daysCount[dayKey] = (daysCount[dayKey] || 0) + 1;
+            }
+        }
+    }
+    
+    // Определяем основные дни (где предмет встречается чаще)
+    const mainDays = Object.entries(daysCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 2)
+        .map(([day]) => daysMap[day]);
+    
+    return {
+        allDays: Object.keys(daysCount).map(day => daysMap[day]),
+        mainDays: mainDays,
+        daysCount: daysCount
+    };
+}
+
+// Функция для получения времени экзаменов/зачетов
+function getExamTimes(subjectName) {
+    const examTimes = [];
+    
+    for (const weekNum in scheduleData) {
+        const week = scheduleData[weekNum];
+        for (const dayName in week.days) {
+            const day = week.days[dayName];
+            day.lessons.forEach(lesson => {
+                if (lesson.subject === subjectName && 
+                    (lesson.type.toLowerCase().includes('зачет') || 
+                     lesson.type.toLowerCase().includes('экзамен') ||
+                     lesson.type.toLowerCase().includes('диф'))) {
+                    examTimes.push({
+                        time: lesson.time.split('-')[0],
+                        type: lesson.type,
+                        date: dayName.split(',')[1].trim()
+                    });
+                }
+            });
+        }
+    }
+    
+    return examTimes;
+}
+
 // Функция для получения всех предметов с информацией о неделях
 function getAllSubjectsWithWeeks() {
     const subjects = {};
@@ -1300,21 +1309,95 @@ function getAllSubjectsWithWeeks() {
     })).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-// Функция для отображения страницы предметов
+// Обновленная функция для получения детальной информации о предметах
+function getSubjectDetails() {
+    const subjects = {};
+    
+    for (const weekNum in scheduleData) {
+        const week = scheduleData[weekNum];
+        for (const dayName in week.days) {
+            const day = week.days[dayName];
+            day.lessons.forEach(lesson => {
+                if (!subjects[lesson.subject]) {
+                    subjects[lesson.subject] = {
+                        name: lesson.subject,
+                        weeks: new Set(),
+                        types: {},
+                        classrooms: new Set(),
+                        totalHours: 0,
+                        weekDetails: {},
+                        days: new Set()
+                    };
+                }
+                
+                const subject = subjects[lesson.subject];
+                subject.weeks.add(parseInt(weekNum));
+                
+                // Подсчет типов занятий
+                subject.types[lesson.type] = (subject.types[lesson.type] || 0) + 1;
+                
+                // Подсчет аудиторий
+                const classroom = lesson.location.split('-')[1]?.trim() || lesson.location;
+                subject.classrooms.add(classroom);
+                
+                // Подсчет часов (1 пара = 1.5 часа)
+                subject.totalHours += 1.5;
+                
+                // Детали по неделям
+                if (!subject.weekDetails[weekNum]) {
+                    subject.weekDetails[weekNum] = {
+                        types: new Set(),
+                        classrooms: new Set()
+                    };
+                }
+                subject.weekDetails[weekNum].types.add(lesson.class);
+                subject.weekDetails[weekNum].classrooms.add(classroom);
+                
+                // Запоминаем дни недели
+                const dayOfWeek = dayName.split(',')[0].toUpperCase();
+                subject.days.add(dayOfWeek);
+            });
+        }
+    }
+    
+    // Преобразуем в массив и добавляем дополнительную информацию
+    const subjectsArray = Object.values(subjects).map(subject => ({
+        ...subject,
+        weeks: Array.from(subject.weeks).sort((a, b) => a - b),
+        classrooms: Array.from(subject.classrooms),
+        days: Array.from(subject.days),
+        icon: getSubjectIcon(subject.name),
+        examTimes: getExamTimes(subject.name)
+    })).sort((a, b) => a.name.localeCompare(b.name));
+    
+    // Собираем общую статистику
+    collectGlobalStats(subjectsArray);
+    
+    return subjectsArray;
+}
+
+// Обновленная функция для отображения страницы предметов
 function renderSubjectsPage() {
     const container = document.getElementById('subjectsContainer');
     const subjects = getSubjectDetails();
     
     container.innerHTML = '';
     
+    // Отображаем общую статистику
+    renderSubjectsSummary();
+    
     if (subjects.length === 0) {
-        container.innerHTML = '<div class="text-center p-4">Предметы не найдены</div>';
+        container.innerHTML += '<div class="text-center p-4">Предметы не найдены</div>';
         return;
     }
     
+    // Отображаем предметы
     subjects.forEach(subject => {
         const subjectCard = document.createElement('div');
         subjectCard.className = 'subject-card';
+        
+        // Получаем дни недели
+        const daysInfo = getSubjectDays(subject.name);
         
         // Статистика по типам занятий
         const statsHTML = Object.entries(subject.types).map(([type, count]) => {
@@ -1326,6 +1409,20 @@ function renderSubjectsPage() {
             
             return `<span class="stat-badge ${typeClass}-stat">${type}: ${count}</span>`;
         }).join('');
+        
+        // Дни недели
+        const daysHTML = daysInfo.allDays.map(day => {
+            const isMain = daysInfo.mainDays.includes(day);
+            return `<span class="day-badge ${isMain ? 'main' : ''}" title="${daysInfo.daysCount[Object.keys(daysMap).find(k => daysMap[k] === day)] || 0} занятий">${day}</span>`;
+        }).join('');
+        
+        // Время экзаменов/зачетов
+        const examTimesHTML = subject.examTimes.map(exam => `
+            <div class="exam-time">
+                <span class="exam-time-icon"><i class="fas fa-clock"></i></span>
+                ${exam.type}: ${exam.time} (${exam.date})
+            </div>
+        `).join('');
         
         // Сетка недель с цветовой индикацией
         const weeksHTML = subject.weeks.map(week => {
@@ -1354,8 +1451,19 @@ function renderSubjectsPage() {
             </div>
             
             <div class="subject-hours">
-                <span class="hours-total">Всего часов: ${subject.totalHours} ч.</span>
+                <span class="hours-total">Всего часов: ${subject.totalHours.toFixed(1)} ч.</span>
             </div>
+            
+            ${daysInfo.allDays.length > 0 ? `
+            <div class="week-days">
+                <strong>Дни недели:</strong>
+                <div class="days-grid mt-2">
+                    ${daysHTML}
+                </div>
+            </div>
+            ` : ''}
+            
+            ${examTimesHTML}
             
             ${classroomsHTML ? `
             <div class="classroom-info">
@@ -1389,7 +1497,7 @@ function renderSettingsPage() {
             </div>
             <div class="info-item">
                 <div class="info-label">Устройство</div>
-                <div class="info-value">${navigator.userAgent.substring(0, 60)}...</div>
+                <div class="info-value">${navigator.userAgent}</div>
             </div>
             <div class="info-item">
                 <div class="info-label">Разрешение экрана</div>
@@ -1401,7 +1509,7 @@ function renderSettingsPage() {
             </div>
             <div class="info-item">
                 <div class="info-label">Версия приложения</div>
-                <div class="info-value">1.0.0</div>
+                <div class="info-value">1.0.1</div>
             </div>
         </div>
     `;
@@ -1463,6 +1571,37 @@ function renderSchedule(week) {
     }
 }
 
+// Функция для отображения общей статистики
+function renderSubjectsSummary() {
+    const container = document.getElementById('subjectsContainer');
+    
+    const summaryHTML = `
+        <div class="subjects-summary">
+            <div class="summary-header">Общая статистика всех предметов</div>
+            <div class="summary-stats">
+                <div class="summary-stat summary-total">
+                    <span class="stat-number">${globalStats.totalHours.toFixed(1)}</span>
+                    <span class="stat-label">Всего часов</span>
+                </div>
+                <div class="summary-stat summary-lectures">
+                    <span class="stat-number">${globalStats.lectures}</span>
+                    <span class="stat-label">Лекций</span>
+                </div>
+                <div class="summary-stat summary-practices">
+                    <span class="stat-number">${globalStats.practices}</span>
+                    <span class="stat-label">Практик</span>
+                </div>
+                <div class="summary-stat summary-exams">
+                    <span class="stat-number">${globalStats.exams + globalStats.diffchecks}</span>
+                    <span class="stat-label">Зачетов/Экзаменов</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = summaryHTML;
+}
+
 // Функция для переключения страниц
 function switchPage(page) {
     // Скрываем все контейнеры
@@ -1501,10 +1640,52 @@ function switchPage(page) {
     }
 }
 
+// Функция для сбора общей статистики
+function collectGlobalStats(subjects) {
+    globalStats = {
+        totalHours: 0,
+        lectures: 0,
+        seminars: 0,
+        practices: 0,
+        exams: 0,
+        diffchecks: 0
+    };
+    
+    subjects.forEach(subject => {
+        globalStats.totalHours += subject.totalHours;
+        Object.entries(subject.types).forEach(([type, count]) => {
+            if (type.toLowerCase().includes('лекц')) globalStats.lectures += count;
+            else if (type.toLowerCase().includes('практич')) globalStats.practices += count;
+            else if (type.toLowerCase().includes('зачет') || type.toLowerCase().includes('экзамен')) globalStats.exams += count;
+            else if (type.toLowerCase().includes('диф')) globalStats.diffchecks += count;
+        });
+    });
+}
+
 // Текущее состояние приложения
 let currentState = {
     page: 'schedule',
     week: getCurrentWeekNumber()
+};
+
+// Глобальные переменные для статистики
+let globalStats = {
+    totalHours: 0,
+    lectures: 0,
+    seminars: 0,
+    practices: 0,
+    exams: 0,
+    diffchecks: 0
+};
+
+// Карта дней недели (добавьте в начало)
+const daysMap = {
+    'ПОНЕДЕЛЬНИК': 'Пн',
+    'ВТОРНИК': 'Вт',
+    'СРЕДА': 'Ср',
+    'ЧЕТВЕРГ': 'Чт',
+    'ПЯТНИЦА': 'Пт',
+    'СУББОТА': 'Сб'
 };
 
 // Инициализация
