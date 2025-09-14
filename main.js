@@ -1509,7 +1509,7 @@ function renderSettingsPage() {
             </div>
             <div class="info-item">
                 <div class="info-label">Версия приложения</div>
-                <div class="info-value">1.0.1</div>
+                <div class="info-value">1.0.3</div>
             </div>
         </div>
     `;
@@ -1662,6 +1662,33 @@ function collectGlobalStats(subjects) {
     });
 }
 
+// THEME
+// Функции для управления темой
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+}
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    const themeToggle = document.getElementById('themeToggle');
+    if (theme === 'dark') {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        themeToggle.title = 'Переключить на светлую тему';
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        themeToggle.title = 'Переключить на темную тему';
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
+
 // Текущее состояние приложения
 let currentState = {
     page: 'schedule',
@@ -1689,7 +1716,14 @@ const daysMap = {
 };
 
 // Инициализация
+// Обновленная инициализация
 document.addEventListener('DOMContentLoaded', function () {
+    // Инициализируем тему
+    initTheme();
+    
+    // Обработчик для кнопки темы
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    
     // Инициализируем начальное состояние
     renderSchedule(currentState.week);
     renderSubjectsPage();
