@@ -627,6 +627,8 @@ body {
     color: var(--exam-color);
 }
 
+/* IPHONE */
+
 /* Адаптивность */
 @media (max-width: 576px) {
     .subject-card {
