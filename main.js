@@ -1154,7 +1154,7 @@ const scheduleData = {
 // Функция для определения иконки предмета по названию
 function getSubjectIcon(subjectName) {
     const lowerName = subjectName.toLowerCase();
-    
+
     if (lowerName.includes('python') || lowerName.includes('django') || lowerName.includes('программир')) {
         return { icon: 'fas fa-code', class: 'tech' };
     }
@@ -1173,21 +1173,21 @@ function getSubjectIcon(subjectName) {
     if (lowerName.includes('зачет') || lowerName.includes('экзамен')) {
         return { icon: 'fas fa-graduation-cap', class: 'exam' };
     }
-    
+
     return { icon: 'fas fa-book', class: 'practice' };
 }
 
 // Функция для определения класса недели по типам занятий
 function getWeekClass(types) {
     const typeSet = new Set(types);
-    
+
     if (typeSet.size > 1) return 'week-mixed';
     if (typeSet.has('lecture')) return 'week-lecture';
     if (typeSet.has('seminar')) return 'week-seminar';
     if (typeSet.has('practice')) return 'week-practice';
     if (typeSet.has('exam')) return 'week-exam';
     if (typeSet.has('diffcheck')) return 'week-diffcheck';
-    
+
     return 'week-practice';
 }
 
@@ -1227,26 +1227,26 @@ function getSubjectDays(subjectName) {
         'ПЯТНИЦА': 'Пт',
         'СУББОТА': 'Сб'
     };
-    
+
     for (const weekNum in scheduleData) {
         const week = scheduleData[weekNum];
         for (const dayName in week.days) {
             const day = week.days[dayName];
             const hasSubject = day.lessons.some(lesson => lesson.subject === subjectName);
-            
+
             if (hasSubject) {
                 const dayKey = dayName.split(',')[0].toUpperCase();
                 daysCount[dayKey] = (daysCount[dayKey] || 0) + 1;
             }
         }
     }
-    
+
     // Определяем основные дни (где предмет встречается чаще)
     const mainDays = Object.entries(daysCount)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 2)
         .map(([day]) => daysMap[day]);
-    
+
     return {
         allDays: Object.keys(daysCount).map(day => daysMap[day]),
         mainDays: mainDays,
@@ -1257,16 +1257,16 @@ function getSubjectDays(subjectName) {
 // Функция для получения времени экзаменов/зачетов
 function getExamTimes(subjectName) {
     const examTimes = [];
-    
+
     for (const weekNum in scheduleData) {
         const week = scheduleData[weekNum];
         for (const dayName in week.days) {
             const day = week.days[dayName];
             day.lessons.forEach(lesson => {
-                if (lesson.subject === subjectName && 
-                    (lesson.type.toLowerCase().includes('зачет') || 
-                     lesson.type.toLowerCase().includes('экзамен') ||
-                     lesson.type.toLowerCase().includes('диф'))) {
+                if (lesson.subject === subjectName &&
+                    (lesson.type.toLowerCase().includes('зачет') ||
+                        lesson.type.toLowerCase().includes('экзамен') ||
+                        lesson.type.toLowerCase().includes('диф'))) {
                     examTimes.push({
                         time: lesson.time.split('-')[0],
                         type: lesson.type,
@@ -1276,14 +1276,14 @@ function getExamTimes(subjectName) {
             });
         }
     }
-    
+
     return examTimes;
 }
 
 // Функция для получения всех предметов с информацией о неделях
 function getAllSubjectsWithWeeks() {
     const subjects = {};
-    
+
     for (const weekNum in scheduleData) {
         const week = scheduleData[weekNum];
         for (const dayName in week.days) {
@@ -1301,7 +1301,7 @@ function getAllSubjectsWithWeeks() {
             });
         }
     }
-    
+
     // Преобразуем Set в массив и сортируем
     return Object.values(subjects).map(subject => ({
         ...subject,
@@ -1312,7 +1312,7 @@ function getAllSubjectsWithWeeks() {
 // Обновленная функция для получения детальной информации о предметах
 function getSubjectDetails() {
     const subjects = {};
-    
+
     for (const weekNum in scheduleData) {
         const week = scheduleData[weekNum];
         for (const dayName in week.days) {
@@ -1329,20 +1329,20 @@ function getSubjectDetails() {
                         days: new Set()
                     };
                 }
-                
+
                 const subject = subjects[lesson.subject];
                 subject.weeks.add(parseInt(weekNum));
-                
+
                 // Подсчет типов занятий
                 subject.types[lesson.type] = (subject.types[lesson.type] || 0) + 1;
-                
+
                 // Подсчет аудиторий
                 const classroom = lesson.location.split('-')[1]?.trim() || lesson.location;
                 subject.classrooms.add(classroom);
-                
+
                 // Подсчет часов (1 пара = 1.5 часа)
                 subject.totalHours += 1.5;
-                
+
                 // Детали по неделям
                 if (!subject.weekDetails[weekNum]) {
                     subject.weekDetails[weekNum] = {
@@ -1352,14 +1352,14 @@ function getSubjectDetails() {
                 }
                 subject.weekDetails[weekNum].types.add(lesson.class);
                 subject.weekDetails[weekNum].classrooms.add(classroom);
-                
+
                 // Запоминаем дни недели
                 const dayOfWeek = dayName.split(',')[0].toUpperCase();
                 subject.days.add(dayOfWeek);
             });
         }
     }
-    
+
     // Преобразуем в массив и добавляем дополнительную информацию
     const subjectsArray = Object.values(subjects).map(subject => ({
         ...subject,
@@ -1369,10 +1369,10 @@ function getSubjectDetails() {
         icon: getSubjectIcon(subject.name),
         examTimes: getExamTimes(subject.name)
     })).sort((a, b) => a.name.localeCompare(b.name));
-    
+
     // Собираем общую статистику
     collectGlobalStats(subjectsArray);
-    
+
     return subjectsArray;
 }
 
@@ -1380,42 +1380,42 @@ function getSubjectDetails() {
 function renderSubjectsPage() {
     const container = document.getElementById('subjectsContainer');
     const subjects = getSubjectDetails();
-    
+
     container.innerHTML = '';
-    
+
     // Отображаем общую статистику
     renderSubjectsSummary();
-    
+
     if (subjects.length === 0) {
         container.innerHTML += '<div class="text-center p-4">Предметы не найдены</div>';
         return;
     }
-    
+
     // Отображаем предметы
     subjects.forEach(subject => {
         const subjectCard = document.createElement('div');
         subjectCard.className = 'subject-card';
-        
+
         // Получаем дни недели
         const daysInfo = getSubjectDays(subject.name);
-        
+
         // Статистика по типам занятий
         const statsHTML = Object.entries(subject.types).map(([type, count]) => {
             const typeClass = type.toLowerCase().includes('лекц') ? 'lecture' :
-                            type.toLowerCase().includes('семинар') ? 'seminar' :
-                            type.toLowerCase().includes('практик') ? 'practice' :
-                            type.toLowerCase().includes('зачет') ? 'exam' :
+                type.toLowerCase().includes('семинар') ? 'seminar' :
+                    type.toLowerCase().includes('практик') ? 'practice' :
+                        type.toLowerCase().includes('зачет') ? 'exam' :
                             type.toLowerCase().includes('диф') ? 'diffcheck' : 'practice';
-            
+
             return `<span class="stat-badge ${typeClass}-stat">${type}: ${count}</span>`;
         }).join('');
-        
+
         // Дни недели
         const daysHTML = daysInfo.allDays.map(day => {
             const isMain = daysInfo.mainDays.includes(day);
             return `<span class="day-badge ${isMain ? 'main' : ''}" title="${daysInfo.daysCount[Object.keys(daysMap).find(k => daysMap[k] === day)] || 0} занятий">${day}</span>`;
         }).join('');
-        
+
         // Время экзаменов/зачетов
         const examTimesHTML = subject.examTimes.map(exam => `
             <div class="exam-time">
@@ -1423,21 +1423,21 @@ function renderSubjectsPage() {
                 ${exam.type}: ${exam.time} (${exam.date})
             </div>
         `).join('');
-        
+
         // Сетка недель с цветовой индикацией
         const weeksHTML = subject.weeks.map(week => {
             const weekClass = getWeekClass(subject.weekDetails[week].types);
             return `<span class="week-badge ${weekClass}" title="Неделя ${week}">${week}</span>`;
         }).join('');
-        
+
         // Аудитории
-        const classroomsHTML = subject.classrooms.map(classroom => 
+        const classroomsHTML = subject.classrooms.map(classroom =>
             `<div class="classroom-item">
                 <span class="classroom-icon"><i class="fas fa-map-marker-alt"></i></span>
                 ${classroom}
             </div>`
         ).join('');
-        
+
         subjectCard.innerHTML = `
             <div class="subject-header">
                 <div class="subject-icon ${subject.icon.class}">
@@ -1479,41 +1479,303 @@ function renderSubjectsPage() {
                 </div>
             </div>
         `;
-        
+
         container.appendChild(subjectCard);
     });
 }
 
 // Функция для отображения страницы настроек
+// function renderSettingsPage() {
+//     const container = document.getElementById('settingsContainer');
+
+//     container.innerHTML = `
+//         <div class="settings-card">
+//             <h5 class="mb-3">Информация о клиенте</h5>
+//             <div class="info-item">
+//                 <div class="info-label">Группа</div>
+//                 <div class="info-value">15.27д-ист02/23б</div>
+//             </div>
+//             <div class="info-item">
+//                 <div class="info-label">Устройство</div>
+//                 <div class="info-value">${navigator.userAgent}</div>
+//             </div>
+//             <div class="info-item">
+//                 <div class="info-label">Разрешение экрана</div>
+//                 <div class="info-value">${window.screen.width} × ${window.screen.height}</div>
+//             </div>
+//             <div class="info-item">
+//                 <div class="info-label">Браузер</div>
+//                 <div class="info-value">${navigator.userAgent.split(') ')[0].split(' (')[1] || 'Неизвестно'}</div>
+//             </div>
+//             <div class="info-item">
+//                 <div class="info-label">Версия приложения</div>
+//                 <div class="info-value">1.0.3</div>
+//             </div>
+//         </div>
+//     `;
+// }
+// Функция для отображения страницы настроек
 function renderSettingsPage() {
     const container = document.getElementById('settingsContainer');
-    
+
     container.innerHTML = `
-        <div class="settings-card">
-            <h5 class="mb-3">Информация о клиенте</h5>
-            <div class="info-item">
-                <div class="info-label">Группа</div>
-                <div class="info-value">15.27д-ист02/23б</div>
+        <div class="settings-section">
+            <div class="settings-header">
+                <i class="fas fa-user"></i>
+                <span>Профиль пользователя</span>
             </div>
-            <div class="info-item">
-                <div class="info-label">Устройство</div>
-                <div class="info-value">${navigator.userAgent}</div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Группа</div>
+                    <div class="setting-description">Ваша учебная группа</div>
+                </div>
+                <div class="setting-value">15.27д-ист02/23б</div>
             </div>
-            <div class="info-item">
-                <div class="info-label">Разрешение экрана</div>
-                <div class="info-value">${window.screen.width} × ${window.screen.height}</div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Курс</div>
+                    <div class="setting-description">Текущий учебный курс</div>
+                </div>
+                <div class="setting-value">3 курс</div>
             </div>
-            <div class="info-item">
-                <div class="info-label">Браузер</div>
-                <div class="info-value">${navigator.userAgent.split(') ')[0].split(' (')[1] || 'Неизвестно'}</div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Семестр</div>
+                    <div class="setting-description">Текущий учебный семестр</div>
+                </div>
+                <div class="setting-value">Осенний 2025</div>
             </div>
-            <div class="info-item">
-                <div class="info-label">Версия приложения</div>
-                <div class="info-value">1.0.3</div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-header">
+                <i class="fas fa-paint-brush"></i>
+                <span>Внешний вид</span>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Тема приложения</div>
+                    <div class="setting-description">Светлая или темная тема</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="themeSwitch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Уведомления</div>
+                    <div class="setting-description">Получать уведомления о занятиях</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="notificationsSwitch" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Виброотклик</div>
+                    <div class="setting-description">Тактильная обратная связь</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="hapticSwitch" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-header">
+                <i class="fas fa-chart-bar"></i>
+                <span>Статистика обучения</span>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Всего учебных часов</div>
+                    <div class="setting-description">За текущий семестр</div>
+                </div>
+                <div class="setting-value">${globalStats.totalHours.toFixed(1)} ч</div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Прогресс семестра</div>
+                    <div class="setting-description">Пройдено учебных недель</div>
+                </div>
+                <div class="setting-value">${Math.min(currentState.week - 1, 18)}/18</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" style="width: ${((Math.min(currentState.week - 1, 18) / 18) * 100)}%"></div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Предстоящих экзаменов</div>
+                    <div class="setting-description">Зачетов и дифференцированных зачетов</div>
+                </div>
+                <div class="setting-value">${globalStats.exams + globalStats.diffchecks}</div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-header">
+                <i class="fas fa-info-circle"></i>
+                <span>Информация о системе</span>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Версия приложения</div>
+                    <div class="setting-description">Текущая версия расписания</div>
+                </div>
+                <div class="setting-value">2.1.0</div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Последнее обновление</div>
+                    <div class="setting-description">Дата обновления расписания</div>
+                </div>
+                <div class="setting-value">${new Date().toLocaleDateString('ru-RU')}</div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Устройство</div>
+                    <div class="setting-description">Модель вашего устройства</div>
+                </div>
+                <div class="setting-value">${navigator.userAgent.split('(')[1]?.split(';')[0] || 'Неизвестно'}</div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Разрешение экрана</div>
+                    <div class="setting-description">Размеры вашего экрана</div>
+                </div>
+                <div class="setting-value">${window.screen.width}×${window.screen.height}</div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-header">
+                <i class="fas fa-cog"></i>
+                <span>Действия</span>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Экспорт расписания</div>
+                    <div class="setting-description">Сохранить расписание в файл</div>
+                </div>
+                <button class="btn-setting secondary" onclick="exportSchedule()">
+                    <i class="fas fa-download"></i> Экспорт
+                </button>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Очистить кэш</div>
+                    <div class="setting-description">Удалить сохраненные данные</div>
+                </div>
+                <button class="btn-setting secondary" onclick="clearCache()">
+                    <i class="fas fa-trash"></i> Очистить
+                </button>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Сообщить об ошибке</div>
+                    <div class="setting-description">Нашли ошибку в расписании?</div>
+                </div>
+                <button class="btn-setting" onclick="reportError()">
+                    <i class="fas fa-bug"></i> Сообщить
+                </button>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-header">
+                <i class="fas fa-shield-alt"></i>
+                <span>Конфиденциальность</span>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Сбор данных</div>
+                    <div class="setting-description">Мы не собираем ваши персональные данные</div>
+                </div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Локальное хранение</div>
+                    <div class="setting-description">Все данные хранятся только на вашем устройстве</div>
+                </div>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-title">Политика конфиденциальности</div>
+                    <div class="setting-description">Как мы защищаем ваши данные</div>
+                </div>
+                <button class="btn-setting secondary" onclick="showPrivacyPolicy()">
+                    <i class="fas fa-file-alt"></i> Показать
+                </button>
             </div>
         </div>
     `;
+
+    // Инициализируем переключатель темы
+    const themeSwitch = document.getElementById('themeSwitch');
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    themeSwitch.checked = currentTheme === 'dark';
+
+    themeSwitch.addEventListener('change', function () {
+        setTheme(this.checked ? 'dark' : 'light');
+    });
+
+    // Добавляем обработчики для других переключателей
+    document.getElementById('notificationsSwitch').addEventListener('change', function () {
+        localStorage.setItem('notifications', this.checked);
+    });
+
+    document.getElementById('hapticSwitch').addEventListener('change', function () {
+        localStorage.setItem('hapticFeedback', this.checked);
+    });
+
 }
+////SETTINGS
+// Функции для действий (заглушки)
+function exportSchedule() {
+    alert('Функция экспорта будет реализована в будущей версии');
+}
+
+function clearCache() {
+    if (confirm('Вы уверены, что хотите очистить кэш?')) {
+        localStorage.removeItem('theme');
+        localStorage.removeItem('notifications');
+        localStorage.removeItem('hapticFeedback');
+        alert('Кэш очищен');
+        location.reload();
+    }
+}
+
+function reportError() {
+    alert('Для сообщения об ошибке свяжитесь с администратором');
+}
+
+function showPrivacyPolicy() {
+    alert('Политика конфиденциальности: все данные хранятся локально на вашем устройстве');
+}
+////
 
 // Функция для отображения расписания
 function renderSchedule(week) {
@@ -1574,7 +1836,7 @@ function renderSchedule(week) {
 // Функция для отображения общей статистики
 function renderSubjectsSummary() {
     const container = document.getElementById('subjectsContainer');
-    
+
     const summaryHTML = `
         <div class="subjects-summary">
             <div class="summary-header">Общая статистика всех предметов</div>
@@ -1598,7 +1860,7 @@ function renderSubjectsSummary() {
             </div>
         </div>
     `;
-    
+
     container.innerHTML = summaryHTML;
 }
 
@@ -1608,10 +1870,10 @@ function switchPage(page) {
     document.getElementById('scheduleContainer').style.display = 'none';
     document.getElementById('subjectsContainer').style.display = 'none';
     document.getElementById('settingsContainer').style.display = 'none';
-    
+
     // Показываем/скрываем навигацию по неделям
     document.getElementById('weekNav').style.display = page === 'schedule' ? 'block' : 'none';
-    
+
     // Обновляем заголовок
     const titles = {
         'schedule': 'Расписание занятий',
@@ -1619,19 +1881,19 @@ function switchPage(page) {
         'settings': 'Настройки'
     };
     document.getElementById('pageTitle').textContent = titles[page];
-    
+
     // Показываем нужный контейнер
     document.getElementById(`${page}Container`).style.display = 'block';
-    
+
     // Обновляем активную кнопку
     document.querySelectorAll('.footer-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.getElementById(`${page}Btn`).classList.add('active');
-    
+
     // Сохраняем текущее состояние
     currentState.page = page;
-    
+
     // Если переключились на страницу, которая требует обновления данных
     if (page === 'subjects') {
         renderSubjectsPage();
@@ -1650,7 +1912,7 @@ function collectGlobalStats(subjects) {
         exams: 0,
         diffchecks: 0
     };
-    
+
     subjects.forEach(subject => {
         globalStats.totalHours += subject.totalHours;
         Object.entries(subject.types).forEach(([type, count]) => {
@@ -1662,7 +1924,6 @@ function collectGlobalStats(subjects) {
     });
 }
 
-// THEME
 // Функции для управления темой
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -1672,7 +1933,7 @@ function initTheme() {
 function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    
+
     const themeToggle = document.getElementById('themeToggle');
     if (theme === 'dark') {
         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -1687,6 +1948,137 @@ function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
+}
+// Функция для определения типа устройства
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+}
+
+// Функция для предотвращения двойного клика
+function preventDoubleTapZoom(element) {
+    let lastTouchEnd = 0;
+
+    element.addEventListener('touchend', function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, { passive: false });
+}
+
+// Функция для добавления haptic feedback на поддерживающих устройствах
+function hapticFeedback() {
+    if ('vibrate' in navigator) {
+        navigator.vibrate(10);
+    }
+}
+
+// Функция для оптимизации кликов на мобильных
+function optimizeMobileClicks() {
+    if (!isTouchDevice()) return;
+
+    // Оптимизируем все кликабельные элементы
+    const clickableElements = [
+        ...document.querySelectorAll('.nav-btn, .footer-btn, .theme-toggle'),
+        ...document.querySelectorAll('.lesson, .subject-card')
+    ];
+
+    clickableElements.forEach(element => {
+        preventDoubleTapZoom(element);
+
+        // Добавляем визуальный feedback при касании
+        element.addEventListener('touchstart', function () {
+            this.style.opacity = '0.8';
+        });
+
+        element.addEventListener('touchend', function () {
+            this.style.opacity = '1';
+            hapticFeedback();
+        });
+
+        element.addEventListener('touchcancel', function () {
+            this.style.opacity = '1';
+        });
+    });
+}
+
+// Функция для добавления быстрых свайпов для навигации
+function addSwipeSupport() {
+    if (!isTouchDevice()) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const scheduleContainer = document.getElementById('scheduleContainer');
+    const subjectsContainer = document.getElementById('subjectsContainer');
+
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
+
+    function handleTouchEnd(e) {
+        if (!touchStartX || !touchStartY) return;
+
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        // Определяем свайп (минимум 50px по горизонтали и не более 30px по вертикали)
+        if (Math.abs(diffX) > 50 && Math.abs(diffY) < 30) {
+            if (diffX > 0) {
+                // Свайп вправо - предыдущая неделя
+                if (currentState.page === 'schedule' && currentState.week > 2) {
+                    currentState.week--;
+                    renderSchedule(currentState.week);
+                    hapticFeedback();
+                }
+            } else {
+                // Свайп влево - следующая неделя
+                if (currentState.page === 'schedule' && currentState.week < 18) {
+                    currentState.week++;
+                    renderSchedule(currentState.week);
+                    hapticFeedback();
+                }
+            }
+        }
+
+        touchStartX = 0;
+        touchStartY = 0;
+    }
+
+    // Добавляем обработчики свайпов для контейнеров с контентом
+    if (scheduleContainer) {
+        scheduleContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+        scheduleContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    if (subjectsContainer) {
+        subjectsContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+        subjectsContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+}
+
+// Функция для улучшения навигации на мобильных
+function enhanceMobileNavigation() {
+    if (!isTouchDevice()) return;
+
+    // Увеличиваем hit area для кнопок навигации
+    const weekNav = document.querySelector('.week-selector');
+    if (weekNav) {
+        weekNav.style.padding = '10px 5px';
+    }
+
+    // Добавляем дополнительные отступы для footer
+    const footerNav = document.querySelector('.footer-nav');
+    if (footerNav) {
+        footerNav.style.padding = '2px 0';
+    }
+
+    // Улучшаем читаемость на мобильных
+    document.documentElement.style.fontSize = '16px'; // Предотвращаем увеличение текста в iOS
 }
 
 // Текущее состояние приложения
@@ -1718,20 +2110,38 @@ const daysMap = {
 // Инициализация
 // Обновленная инициализация
 document.addEventListener('DOMContentLoaded', function () {
+
     // Инициализируем тему
     initTheme();
-    
+
+    // Оптимизируем для мобильных устройств
+    if (isTouchDevice()) {
+        optimizeMobileClicks();
+        addSwipeSupport();
+        enhanceMobileNavigation();
+
+        // Добавляем класс для touch-устройств
+        document.documentElement.classList.add('touch-device');
+    } else {
+        document.documentElement.classList.add('no-touch');
+    }
+
     // Обработчик для кнопки темы
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-    
-    // Инициализируем начальное состояние
+    document.getElementById('themeToggle').addEventListener('click', function (e) {
+        if (isTouchDevice()) {
+            e.preventDefault();
+            setTimeout(() => toggleTheme(), 100);
+        } else {
+            toggleTheme();
+        }
+    });
+
+    // Остальная инициализация...
     renderSchedule(currentState.week);
     renderSubjectsPage();
     renderSettingsPage();
-    
-    // Показываем расписание по умолчанию
     switchPage('schedule');
-    
+
     // Обработчики для кнопок навигации по неделям
     document.getElementById('prevWeek').addEventListener('click', function () {
         if (currentState.week > 2) {
@@ -1746,18 +2156,18 @@ document.addEventListener('DOMContentLoaded', function () {
             renderSchedule(currentState.week);
         }
     });
-    
+
     // Обработчики для кнопок нижней панели
     document.getElementById('scheduleBtn').addEventListener('click', function (e) {
         e.preventDefault();
         switchPage('schedule');
     });
-    
+
     document.getElementById('subjectsBtn').addEventListener('click', function (e) {
         e.preventDefault();
         switchPage('subjects');
     });
-    
+
     document.getElementById('settingsBtn').addEventListener('click', function (e) {
         e.preventDefault();
         switchPage('settings');
