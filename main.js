@@ -1485,36 +1485,6 @@ function renderSubjectsPage() {
 }
 
 // Функция для отображения страницы настроек
-// function renderSettingsPage() {
-//     const container = document.getElementById('settingsContainer');
-
-//     container.innerHTML = `
-//         <div class="settings-card">
-//             <h5 class="mb-3">Информация о клиенте</h5>
-//             <div class="info-item">
-//                 <div class="info-label">Группа</div>
-//                 <div class="info-value">15.27д-ист02/23б</div>
-//             </div>
-//             <div class="info-item">
-//                 <div class="info-label">Устройство</div>
-//                 <div class="info-value">${navigator.userAgent}</div>
-//             </div>
-//             <div class="info-item">
-//                 <div class="info-label">Разрешение экрана</div>
-//                 <div class="info-value">${window.screen.width} × ${window.screen.height}</div>
-//             </div>
-//             <div class="info-item">
-//                 <div class="info-label">Браузер</div>
-//                 <div class="info-value">${navigator.userAgent.split(') ')[0].split(' (')[1] || 'Неизвестно'}</div>
-//             </div>
-//             <div class="info-item">
-//                 <div class="info-label">Версия приложения</div>
-//                 <div class="info-value">1.0.3</div>
-//             </div>
-//         </div>
-//     `;
-// }
-// Функция для отображения страницы настроек
 function renderSettingsPage() {
     const container = document.getElementById('settingsContainer');
 
@@ -1775,7 +1745,6 @@ function reportError() {
 function showPrivacyPolicy() {
     alert('Политика конфиденциальности: все данные хранятся локально на вашем устройстве');
 }
-////
 
 // Функция для отображения расписания
 function renderSchedule(week) {
@@ -1836,6 +1805,7 @@ function renderSchedule(week) {
 // Функция для отображения общей статистики
 function renderSubjectsSummary() {
     const container = document.getElementById('subjectsContainer');
+    // container.classListadd = 'row';
 
     const summaryHTML = `
         <div class="subjects-summary">
@@ -1874,6 +1844,21 @@ function switchPage(page) {
     // Показываем/скрываем навигацию по неделям
     document.getElementById('weekNav').style.display = page === 'schedule' ? 'block' : 'none';
 
+    if (isTouchDevice()) {
+        document.getElementById('daysNavigation').style.display = page === 'schedule' ? 'flex' : 'none';
+        document.getElementById(`${page}Container`).style.display = 'block';
+    } else {
+        document.getElementById('daysNavigation').style.display = 'none';
+        document.getElementById(`${page}Container`).style.display = 'grid';
+
+        if (page === 'schedule') {
+            document.querySelector(`#${page}Container .schedule-slides`).style.display = 'grid';
+        }
+    }
+    // Показываем/скрываем навигацию по дням
+    // document.getElementById('daysNavigation').style.display =
+    // (page === 'schedule' && isTouchDevice()) ? 'flex' : 'none';
+
     // Обновляем заголовок
     const titles = {
         'schedule': 'Расписание занятий',
@@ -1883,7 +1868,11 @@ function switchPage(page) {
     document.getElementById('pageTitle').textContent = titles[page];
 
     // Показываем нужный контейнер
-    document.getElementById(`${page}Container`).style.display = 'block';
+    // document.getElementById(`${page}Container`).style.display = 'block';
+
+    // if (!isTouchDevice) {
+    //     document.getElementById(`${page}Container`).style.display = 'grid';
+    // }
 
     // Обновляем активную кнопку
     document.querySelectorAll('.footer-btn').forEach(btn => {
@@ -1893,13 +1882,6 @@ function switchPage(page) {
 
     // Сохраняем текущее состояние
     currentState.page = page;
-
-    // Если переключились на страницу, которая требует обновления данных
-    if (page === 'subjects') {
-        renderSubjectsPage();
-    } else if (page === 'settings') {
-        renderSettingsPage();
-    }
 }
 
 // Функция для сбора общей статистики
@@ -1938,21 +1920,33 @@ function setTheme(theme) {
     if (theme === 'dark') {
         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         themeToggle.title = 'Переключить на светлую тему';
+        if(document.getElementById('themeSwitch')) document.getElementById('themeSwitch').checked = true;
     } else {
         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         themeToggle.title = 'Переключить на темную тему';
+        if(document.getElementById('themeSwitch')) document.getElementById('themeSwitch').checked = false;
     }
 }
 
 function toggleTheme() {
+    const themeSwitch = document.getElementById('themeSwitch');
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
 }
 // Функция для определения типа устройства
 function isTouchDevice() {
-    return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+    const MOBILE_WIDTH = 767;
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+    // Проверяем ширину экрана
+    const isMobileWidth = window.innerWidth <= MOBILE_WIDTH;
+
+    console.log(isTouch && isMobileWidth);
+    return isTouch && isMobileWidth;
+    // return isTouch;
 }
+
 
 // Функция для предотвращения двойного клика
 function preventDoubleTapZoom(element) {
@@ -1968,9 +1962,13 @@ function preventDoubleTapZoom(element) {
 }
 
 // Функция для добавления haptic feedback на поддерживающих устройствах
+// Функция для haptic feedback (с проверкой разрешения)
 function hapticFeedback() {
-    if ('vibrate' in navigator) {
-        navigator.vibrate(10);
+    // Проверяем, было ли уже взаимодействие с пользователем
+    if (document.body.classList.contains('user-interacted')) {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(10);
+        }
     }
 }
 
@@ -2081,6 +2079,254 @@ function enhanceMobileNavigation() {
     document.documentElement.style.fontSize = '16px'; // Предотвращаем увеличение текста в iOS
 }
 
+// Функция для создания навигации по дням
+function renderDaysNavigation(week) {
+    const daysNav = document.getElementById('daysNavigation');
+    const weekData = scheduleData[week];
+
+    daysNav.innerHTML = '';
+
+    let dayIndex = 0;
+    for (const [dayName, dayData] of Object.entries(weekData.days)) {
+        const dateParts = dayName.split(', ');
+        const dayOfWeek = dateParts[0];
+        const date = dateParts[1];
+
+        const dayNavItem = document.createElement('div');
+        dayNavItem.className = 'day-nav-item';
+        dayNavItem.setAttribute('data-day-index', dayIndex);
+
+        // Форматируем дату для отображения (только число)
+        const dayNumber = date.split('.')[0];
+
+        // Сокращаем название дня недели
+        const shortDayName = getShortDayName(dayOfWeek);
+
+        dayNavItem.innerHTML = `
+                    <div class="day-nav-date">${dayNumber}</div>
+                    <div class="day-nav-day">${shortDayName}</div>
+                `;
+
+        // Добавляем обработчик событий
+        dayNavItem.addEventListener('click', function (e) {
+            e.preventDefault();
+            const index = parseInt(this.getAttribute('data-day-index'));
+            scrollToDay(index);
+            setActiveDay(index);
+            hapticFeedback();
+        });
+
+        daysNav.appendChild(dayNavItem);
+        dayIndex++;
+    }
+
+    // // Показываем навигацию по дням только на мобильных устройствах
+    // if (isTouchDevice()) {
+    //     daysNav.style.display = 'flex';
+    //     setActiveDay(0); // Активируем первый день по умолчанию
+    // } else {
+    //     daysNav.style.display = 'none';
+    // }
+}
+
+// Функция для получения сокращенного названия дня недели
+function getShortDayName(fullDayName) {
+    const daysMap = {
+        'ПОНЕДЕЛЬНИК': 'Пн',
+        'ВТОРНИК': 'Вт',
+        'СРЕДА': 'Ср',
+        'ЧЕТВЕРГ': 'Чт',
+        'ПЯТНИЦА': 'Пт',
+        'СУББОТА': 'Сб',
+        'ВОСКРЕСЕНЬЕ': 'Вс'
+    };
+
+    return daysMap[fullDayName] || fullDayName.substring(0, 2);
+}
+
+// Функция для прокрутки к определенному дню
+// Функция для прокрутки к определенному дню
+function scrollToDay(dayIndex) {
+    const slidesContainer = document.getElementById('scheduleSlides');
+    const slideWidth = slidesContainer.offsetWidth;
+    console.log(dayIndex);
+    const addWidth = dayIndex ? 10 : 0;
+    console.log(addWidth)
+    slidesContainer.style.transform = `translateX(-${dayIndex * slideWidth + dayIndex * addWidth}px)`;
+    currentState.currentDay = dayIndex;
+}
+
+// Функция для установки активного дня в навигации
+function setActiveDay(dayIndex) {
+    const dayItems = document.querySelectorAll('.day-nav-item');
+    dayItems.forEach(item => {
+        item.classList.remove('active');
+    });
+
+    const activeItem = document.querySelector(`.day-nav-item[data-day-index="${dayIndex}"]`);
+    if (activeItem) {
+        activeItem.classList.add('active');
+
+        // Прокручиваем навигацию к активному элементу
+        activeItem.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest'
+        });
+    }
+}
+// Обновленная функция для отображения расписания
+function renderSchedule(week) {
+    const scheduleSlides = document.getElementById('scheduleSlides');
+    const weekData = scheduleData[week];
+
+    // Обновляем заголовок
+    document.getElementById('currentWeek').textContent = `Неделя ${week} (${weekData.startDate} - ${weekData.endDate})`;
+
+    // Очищаем контейнер
+    scheduleSlides.innerHTML = '';
+
+    // Добавляем дни как слайды
+    for (const [dayName, dayData] of Object.entries(weekData.days)) {
+        // Определяем, сегодня ли это день
+        const isToday = false; // Здесь можно добавить логику проверки на текущий день
+
+        const daySlide = document.createElement('div');
+        daySlide.className = 'schedule-slide';
+
+        const dayCard = document.createElement('div');
+        dayCard.className = `day-card ${isToday ? 'today' : ''}`;
+
+        // Заголовок дня
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'day-header';
+        dayHeader.textContent = dayName;
+        dayCard.appendChild(dayHeader);
+
+        // Содержимое дня
+        if (dayData.lessons.length === 0) {
+            const noLessons = document.createElement('div');
+            noLessons.className = 'no-lessons';
+            noLessons.textContent = 'Занятия отсутствуют';
+            dayCard.appendChild(noLessons);
+        } else {
+            dayData.lessons.forEach(lesson => {
+                const lessonElement = document.createElement('div');
+                lessonElement.className = `lesson ${lesson.class}`;
+
+                lessonElement.innerHTML = `
+                            <div class="time-block">
+                                <div class="time-period">${lesson.period}</div>
+                                <div class="time">${lesson.time}</div>
+                            </div>
+                            <div class="lesson-info">
+                                <div class="subject">${lesson.subject}</div>
+                                <div class="lesson-type">${lesson.type}</div>
+                                <div class="lesson-location">${lesson.location}</div>
+                            </div>
+                        `;
+
+                dayCard.appendChild(lessonElement);
+            });
+        }
+
+        daySlide.appendChild(dayCard);
+        scheduleSlides.appendChild(daySlide);
+    }
+
+    // Создаем навигацию по дням
+    renderDaysNavigation(week);
+
+    // Сбрасываем позицию слайдера на понедельник
+    setTimeout(() => {
+        scrollToDay(0);
+        setActiveDay(0);
+    }, 50);
+}
+
+// Функция для добавления свайп-поддержки
+function addSwipeSupport() {
+    if (!isTouchDevice()) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const scheduleContainer = document.getElementById('scheduleContainer');
+    const totalDays = Object.keys(scheduleData[currentState.week].days).length;
+
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
+
+    function handleTouchMove(e) {
+        if (!touchStartX || !touchStartY) return;
+
+        const touchMoveX = e.touches[0].clientX;
+        const touchMoveY = e.touches[0].clientY;
+
+        const diffX = touchMoveX - touchStartX;
+        const diffY = touchMoveY - touchStartY;
+
+        // Если движение по вертикали больше, чем по горизонтали, отменяем свайп
+        if (Math.abs(diffY) > Math.abs(diffX)) {
+            touchStartX = 0;
+            touchStartY = 0;
+            return;
+        }
+
+        // Предотвращаем прокрутку страницы при горизонтальном свайпе
+        if (Math.abs(diffX) > 10) {
+            e.preventDefault();
+        }
+    }
+
+    function handleTouchEnd(e) {
+        if (!touchStartX || !touchStartY) return;
+
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        // Определяем свайп (минимум 50px по горизонтали и не более 30px по вертикали)
+        if (Math.abs(diffX) > 50 && Math.abs(diffY) < 30) {
+            if (diffX > 0) {
+                // Свайп вправо - предыдущий день
+                if (currentState.currentDay > 0) {
+                    const newDay = currentState.currentDay - 1;
+                    scrollToDay(newDay);
+                    setActiveDay(newDay);
+                    hapticFeedback();
+                }
+            } else {
+                // Свайп влево - следующий день
+                if (currentState.currentDay < totalDays - 1) {
+                    const newDay = currentState.currentDay + 1;
+                    scrollToDay(newDay);
+                    setActiveDay(newDay);
+                    hapticFeedback();
+                }
+            }
+        }
+
+        touchStartX = 0;
+        touchStartY = 0;
+    }
+
+    // Добавляем обработчики свайпов для контейнера расписания
+    if (scheduleContainer) {
+        scheduleContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+        scheduleContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
+        scheduleContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    if (subjectsContainer) {
+        subjectsContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+        subjectsContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+}
+
 // Текущее состояние приложения
 let currentState = {
     page: 'schedule',
@@ -2110,7 +2356,6 @@ const daysMap = {
 // Инициализация
 // Обновленная инициализация
 document.addEventListener('DOMContentLoaded', function () {
-
     // Инициализируем тему
     initTheme();
 

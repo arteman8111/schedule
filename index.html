@@ -12,6 +12,7 @@
     <title>Расписание занятий</title>
 </head>
 <body>
+
     <div class="header text-center">
         <div class="header-content">
             <h1 class="h5 mb-0" id="pageTitle">Расписание занятий</h1>
@@ -34,21 +35,26 @@
             </button>
         </div>
     </div>
+
+    <!-- Новая навигация по дням недели (только для мобильных) -->
+    <div class="days-navigation" id="daysNavigation"></div>
     
     <div class="container mt-3">
         <div class="row">
             <div class="col-12">
                 <!-- Контейнер для основного контента -->
                 <div id="contentContainer">
-                    <div id="scheduleContainer">
-                        <!-- Расписание будет загружено здесь -->
+                    <div id="scheduleContainer" class="schedule-slider">
+                        <div class="schedule-slides" id="scheduleSlides">
+                            <!-- Расписание будет загружено здесь как слайды -->
+                        </div>
                     </div>
                     
-                    <div id="subjectsContainer" style="display: none;">
+                    <div id="subjectsContainer" class="subjects-container" style="display: none;">
                         <!-- Предметы будут загружены здесь -->
                     </div>
                     
-                    <div id="settingsContainer" style="display: none;">
+                    <div id="settingsContainer" class="settings-container" style="display: none;">
                         <!-- Настройки будут загружены здесь -->
                     </div>
                 </div>

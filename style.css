@@ -794,7 +794,7 @@ body {
         top: 68px;
     }
 
-        .settings-section {
+    .settings-section {
         padding: 15px;
     }
 
@@ -962,4 +962,121 @@ input:checked+.slider:before {
     justify-content: center;
     font-size: 0.7rem;
     margin-left: 10px;
+}
+
+/* Обновление для расписания */
+/* Адаптивные стили для мобильных устройств */
+/* .days-navigation {
+    display: none;
+} */
+
+.schedule-slides {
+    /* display: grid; */
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.subjects-container {
+    /* display: grid !important; */
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.settings-container {
+    /* display: grid !important; */
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 767px) {
+
+    .days-navigation {
+        display: flex;
+        overflow-x: auto;
+        background-color: var(--card-bg);
+        padding: 10px 0;
+        position: sticky;
+        top: 75px;
+        z-index: 998;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        justify-content: space-evenly;
+        /* IE/Edge */
+    }
+
+    .days-navigation::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari */
+    }
+
+    .day-nav-item {
+        flex: 0 0 auto;
+        text-align: center;
+        padding: 8px 12px;
+        margin: 0 5px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 60px;
+        background-color: var(--secondary-color);
+        color: var(--light-text);
+        font-size: 0.9rem;
+    }
+
+    .day-nav-item.active {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+    }
+
+    .day-nav-date {
+        font-size: 1.2rem;
+        font-weight: bold;
+        line-height: 1.2;
+    }
+
+    .day-nav-day {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+
+    .schedule-slider {
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    .schedule-slides {
+        display: flex;
+        transition: transform 0.3s ease;
+        gap: 10px;
+    }
+    
+    .schedule-slide {
+        /* padding: 0 5px; */
+        flex: 0 0 100%;
+        width: 100%;
+        box-sizing: border-box;
+        /* margin: 0 5px; */
+    }
+
+
+    .days-navigation {
+        top: 68px;
+    }
+
+    .day-nav-item {
+        min-width: 49px;
+        padding: 6px 12px;
+        margin: 0 3px;
+    }
+
+    .day-nav-date {
+        font-size: 1rem;
+    }
+
+    .day-nav-day {
+        font-size: 0.7rem;
+    }
 }
